@@ -23,7 +23,7 @@ class DownloadCaptions(Step):
                 text_file.write(en_caption_convert_to_srt)
                 text_file.close()
             except (KeyError, AttributeError):
-                print("An error when downloading captions for :", yt.url + '.txt')
+                print("An error when downloading captions for :", yt.url)
                 continue
 
         end = time.time()
