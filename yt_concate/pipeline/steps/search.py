@@ -18,7 +18,6 @@ class Search(Step):
                     f = Found(yt, caption, time)
                     found.append(f)
 
-        print(len(found))
         return found
 
 

@@ -1,4 +1,6 @@
 import os
+import shutil
+import sys
 
 from yt_concate.settings import DOWNLOADS_DIR
 from yt_concate.settings import VIDEOS_DIR
@@ -20,8 +22,8 @@ class Utils:
         return os.path.join(DOWNLOADS_DIR, channel_id + '.txt')
 
     def video_list_file_exists(self, channel_id):
-        path = self.get_video_list_filepath(channel_id)
-        return os.path.exists(path) and os.path.getsize(path) > 0
+        filepath = self.get_video_list_filepath(channel_id)
+        return os.path.exists(filepath) and os.path.getsize(filepath) > 0
 
     def caption_file_exists(self, yt):
         filepath = yt.caption_filepath
@@ -35,6 +37,25 @@ class Utils:
         filename = f'{channel_id}_{search_word}.mp4'
         return os.path.join(OUTPUTS_DIR, filename)
 
+    def output_file_exists(self, channel_id, search_word):
+        filepath = self.get_output_filepath(channel_id, search_word)
+        return os.path.exists(filepath) and os.path.getsize(filepath) > 0
+
+    def output_file_replacement_check(self, channel_id, search_word):
+        if self.output_file_exists(channel_id, search_word):
+            a = input('output file has already existed, still want to proceed ? (Y/N) ')
+
+            if a == 'Y' or a == 'y':
+                print('processing')
+
+            elif a == 'N' or a == 'n':
+                print('stop running')
+                sys.exit(0)
+
+    def delete_downloaded_files(self, channel_id):
+        shutil.rmtree(DOWNLOADS_DIR)
+        shutil.rmtree(OUTPUTS_DIR)
+        os.remove(self.get_video_list_filepath(channel_id))
 
 
 
