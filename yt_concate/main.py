@@ -3,7 +3,6 @@ import getopt
 import logging
 from distutils.util import strtobool
 
-# from yt_concate.log import config_logger
 from yt_concate import log
 from yt_concate.pipeline.steps.preflight import Preflight
 from yt_concate.pipeline.steps.get_video_list import GetVideoList
@@ -14,12 +13,24 @@ from yt_concate.pipeline.steps.search import Search
 from yt_concate.pipeline.steps.download_videos import DownloadVideos
 from yt_concate.pipeline.steps.edit_video import EditVideo
 from yt_concate.pipeline.steps.postflight import Postflight
-from yt_concate.pipeline.steps.step import StepException
 from yt_concate.pipeline.pipeline import Pipeline
 from yt_concate.utils import Utils
 
 
 CHANNEL_ID = 'UCKSVUHI9rbbkXhvAXK-2uxA'
+
+
+def print_usage():
+    print('python yt-concate.py OPTIONS')
+    print('OPTIONS:')
+    print('{:>6} {:>12}{}'.format('-c', '--channel_id', 'Channel id for YouTube to download videos'))
+    print('{:>6} {:>12}{}'.format('-s', '--search_word', 'Search the selected word in the video lists'))
+    print('{:>6} {:>12}{}'.format('-l', '--limit', 'Set the limit of the videos about to download'))
+    print('{:>6} {:>12}{}'.format('-o', '--output_file_replacement', 'this will ask you if you wanna replace the '
+                                                                     'already-existed output file with a new one '))
+    print('{:>6} {:>12}{}'.format('-f', '--fast', 'Ignore captions and video files already existed'))
+    print('{:>6} {:>12}{}'.format('', '--clean_up', 'Delete all the files produced by this project'))
+    print('{:>6} {:>12}{}'.format('', '--logging_level', 'Set a logging level for logger writing in yt_concate.log'))
 
 
 def main(argv):
@@ -73,7 +84,7 @@ def main(argv):
         elif opt in "--clean_up":
             inputs['clean_up'] = bool(strtobool(arg))
         elif opt in "--logging_level":
-            inputs['logging_level'] = arg
+            inputs['logging_level'] = eval(f'log.{arg}')
 
     log.config_logger(inputs['logging_level'])
     utils = Utils()

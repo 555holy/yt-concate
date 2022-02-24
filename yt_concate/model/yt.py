@@ -2,7 +2,7 @@ import os
 
 from yt_concate.settings import CAPTIONS_DIR
 from yt_concate.settings import VIDEOS_DIR
-from yt_concate.settings import OUTPUTS_DIR
+
 
 class YT:
     def __init__(self, url):
@@ -21,7 +21,7 @@ class YT:
         return os.path.join(CAPTIONS_DIR, self.id + '.txt')
 
     def get_video_filepath(self):
-        return os.path.join(VIDEOS_DIR, self.id + '.mp4')
+        return os.path.join(VIDEOS_DIR, self.id + '_video' + '.mp4')
 
     def __str__(self):
         return '<YT(' + self.id + ')>'

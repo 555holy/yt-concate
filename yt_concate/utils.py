@@ -1,6 +1,7 @@
 import os
 import shutil
 import sys
+import logging
 
 from yt_concate.settings import DOWNLOADS_DIR
 from yt_concate.settings import VIDEOS_DIR
@@ -42,14 +43,15 @@ class Utils:
         return os.path.exists(filepath) and os.path.getsize(filepath) > 0
 
     def output_file_replacement_check(self, channel_id, search_word):
+        logger = logging.getLogger('yt_concate.log.' + __name__)
         if self.output_file_exists(channel_id, search_word):
             a = input('output file has already existed, still want to proceed ? (Y/N) ')
 
             if a == 'Y' or a == 'y':
-                print('processing')
+                logger.info('processing')
 
             elif a == 'N' or a == 'n':
-                print('stop running')
+                logger.info('stop running')
                 sys.exit(0)
 
     def delete_downloaded_files(self, channel_id):
