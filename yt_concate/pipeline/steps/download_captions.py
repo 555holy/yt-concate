@@ -11,7 +11,7 @@ class DownloadCaptions(Step):
     def process(self, data, inputs, utils):
         logger = logging.getLogger('yt_concate.log.' + __name__)
         start = time.time()
-        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=15) as executor:
             for yt in data:
                 if inputs['fast']:
                     if utils.caption_file_exists(yt):
