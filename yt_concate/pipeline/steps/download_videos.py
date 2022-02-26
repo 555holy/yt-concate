@@ -10,18 +10,23 @@ from .step import Step
 class DownloadVideos(Step):
     def process(self, data, inputs, utils):
         logger = logging.getLogger('yt_concate.log.' + __name__)
+        count = 0
         start = time.time()
         yt_set = set([found.yt for found in data])
         logger.info(f'videos to download {len(yt_set)}')
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=15) as executor:
             for yt in yt_set:
+                count += 1
                 url = yt.url
                 if inputs['fast']:
                     if utils.video_file_exists(yt):
                         logger.info(f'found existing video file for {url}, skipping')
                         continue
-                executor.submit(self.download_videos, yt[:30])
+
+                if count > inputs['limit']:
+                    break
+                executor.submit(self.download_videos, yt)
 
         end = time.time()
         logger.info(f'took {end-start} seconds')

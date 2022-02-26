@@ -14,12 +14,15 @@ class EditVideo(Step):
             utils.output_file_replacement_check(channel_id, search_word)
 
         for found in data:
-            start, end = self.parse_caption_time(found.time)
-            video = VideoFileClip(found.yt.video_filepath).subclip(start, end)
-            clips.append(video)
+            if not utils.video_file_exists(found.yt):
+                continue
 
             if len(clips) > inputs['limit']:
                 break
+
+            start, end = self.parse_caption_time(found.time)
+            video = VideoFileClip(found.yt.video_filepath).subclip(start, end)
+            clips.append(video)
 
         final_clip = concatenate_videoclips(clips)
         output_filepath = utils.get_output_filepath(inputs['channel_id'], inputs['search_word'])
