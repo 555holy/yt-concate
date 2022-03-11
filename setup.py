@@ -12,17 +12,17 @@ from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
 # Package meta-data.
-NAME = 'yt-concate'
+NAME = 'yt-concate-555'
 DESCRIPTION = 'Produce a video concatenated by a selected word'
 URL = 'https://github.com/555holy/yt-concate'
 EMAIL = '555holy@gmail.com'
-AUTHOR = 'Sean Lie'
+AUTHOR = '555holy'
 REQUIRES_PYTHON = '>=3.6.0'
 VERSION = '0.1.0'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-   'moviepy', 'python-dotenv', 'pytube', 'requests', 'urllib3', 'youtube_dl', 'ffmpeg'
+   'moviepy', 'python-dotenv', 'pytube', 'requests', 'urllib3', 'youtube_dl'
 ]
 
 # What packages are optional?
